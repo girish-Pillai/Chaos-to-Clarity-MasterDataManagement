@@ -1,8 +1,11 @@
 # Chaos to Clarity: Unifying Inconsistent Datasets to Create a Master Data
 
-Problem Statement: I received two datasets with information about various organizations/restaurants, including details such as address, city, and zip code. The problem arose due to the inconsistent nature of the data. Initially, the task appeared straightforward – eliminate duplicates and ensure the final dataset comprises only unique entries. However, upon closer inspection, navigating through the inconsistent data proved to be quite a puzzle. Messy datasets of this nature were not something I commonly dealt with. Nevertheless, tackling this intricate problem was both interesting and presented a welcome challenge in my learning journey.
+Problem Statement: 
+
+I received two datasets with information about various organizations/restaurants, including details such as address, city, and zip code. The problem arose due to the inconsistent nature of the data. Initially, the task appeared straightforward – eliminate duplicates and ensure the final dataset comprises only unique entries. However, upon closer inspection, navigating through the inconsistent data proved to be quite a puzzle. Messy datasets of this nature were not something I commonly dealt with. Nevertheless, tackling this intricate problem was both interesting and presented a welcome challenge in my learning journey.
 
 DATA CLEANING PROCESS:
+
 After checking both files, it looks like the data is not the same. For example, even if the entity names are similar, the city, zipcode, and address is different. Some addresses match, but the entities are completely different. There are only 178 records that exactly match, and some of them are repeated.
 
 Decided to use these column names: ENTITY, ADDRESS, CITY, ZIPCODE. Couldn't use "RESTAURANTS" for the name column because the data includes places that are not considered restaurants.
@@ -10,6 +13,7 @@ Decided to use these column names: ENTITY, ADDRESS, CITY, ZIPCODE. Couldn't use 
 Decided to combine both datasets since there weren't many similarities found in the files. The original count was before cleaning the Data was 417,559
 
 Handling Addresses:
+
 Rephrased and contextualized instructions for cleaning CSV data:
 
 Steps:
