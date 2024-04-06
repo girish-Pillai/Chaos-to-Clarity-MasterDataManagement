@@ -26,55 +26,47 @@ Rephrased and contextualized instructions for cleaning CSV data:
 6. Cleaning involved going back and forth between addresses and entities. I'd fix addresses, then tackle entities, then go back to addresses to catch new issues. Time constraints meant I couldn't divide and combine data as planned, so I applied various techniques on the fly.
 
 
-Cleaning Business Names:
-1.	Pass 1: Removing High-Frequency Designations: Eliminated words like "INC," "LLC," "CORP," etc., using regular expressions.
-2.	Performed this in three passes to address cases where multiple designations appeared in a single name (e.g., "CENTURY KANG INC CO LLC"). This ensures thorough cleanup.
-3.	Pass 2: Standardizing Well-Known Entities:
-4.	Manually identified high-frequency entities (e.g., "DUNKIN DONUTS," "DOMINOS," "SUBWAY") repeated over 200 times.
-5.	Standardized their names to consistent formats (e.g., all uppercase or title case) to facilitate grouping and improve Edit Distance Algorithm performance.
-6.	Exported the cleaned dataframe to Parquet format for leveraging columnar processing
-7.	While dividing and combining data to address inconsistencies, I discovered additional similarities his suggests that a more iterative approach could yield even better results in future iterations
-Similarity Metrics:
-1.	After reading and exploring various similarity metrics, I tested two approaches:
-a.	Levhensteign weight: In short, The Levenshtein distance is a measure of the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into the other.
-b.	FuzzyWuzzy package: Python library that provides tools for string matching and comparison. In our project, we utilize
-c.	Despite my efforts to leverage PySpark's built-in Levenshtein method, the results were not highly successful.
-Fuzzy Wuzzy Approach:
-1.	Here's the FuzzyWuzzy code I used, focusing on tackling problems incrementally and keeping other factors constant. I started with addresses while holding other columns stable, then moved on to refining addresses again based on restaurant similarities. Ideally, I wanted to iteratively divide the data, clean it, run the algorithm, combine it, and repeat until convergence. However, time constraints limited me to two iterations. In future work, I'd like to explore further techniques, including applying Levenshtein distance after achieving a baseline level of data cleanliness.
-2.	After eliminating exact matches and duplicates, I arranged the dataset to highlight pairs of similar rows.
-3.	I started by splitting the data into two groups based on row numbers, effectively creating pairs of potentially similar rows and divided the dataset based on the row nums. 
-4.	This technique proved to be better because I can easily apply the UDF on columns, back and forth 
-5.	Next, I decided on a threshold of 70% similarity. Pairs with scores above 70% were good candidates for being duplicates, but things were a bit more tricky. If both entities in a pair scored above 70%, I chose the longer one, assuming it had more information.
-6.	Finally, I merged the selected pairs back into a single dataframe. I cleaned up some temporary columns and renamed others to make things clearer.
-7.	At every step I checked the if their distinct matches that I get so that I can push it directly to the result. This process effectively identified and combined potential duplicates by comparing entity names and addresses.
-Things I tried but didn’t yield much result:
-As I had the Zip code and City details, I thought of using an open-source geo API that would help me get the addressed standardized, I did write some UDFs to compare zip and city to match the address but because of the hardware constraints I was never able to finish the execution as the UDF had to manually go through each row to compare.
-Future Scope and Scaling:
-•	Pipeline Design:
-•	Full Load First Time:
-•	Conducting a comprehensive cleaning manually or through algorithms on the first load, using human validation and checksums.
-•	Once clean, we can consider this clean data as the source of truth.
-•	Create two copies of the clean data: one designated as the Master data and the other as the Source Table.
-•	To enhance query performance over time when the data grows, we can consider incorporating the SATAE Column Using the zip code and city  which will allow better partitioning and bucketing.
-•	Incremental Load (Timely run):
-•	After the initial load, new incoming data will pass through the Master-Data-Management (MDM) table.
-•	Check for similarities, apply transformations, substitutions, on the fly and push the data to the Source table.
-•	Not all data goes to the Source immediately; similarity checks based on the MDM data determine eligibility.
-•	Criteria for pushing data (Just an assumption)
-•	80% similarity: Directly to the Source after going through the transformations
-•	40-80% similarity: To an error/review table for manual checking and resolution before re-entering the pipeline.
-•	<40% similarity: Considered as potentially new entries, requiring manual verification, addition to MDM, and re-entry into the pipeline.
-•	Over Time:
-•	With refinements and additions to the MDM table and human validations, manual intervention reduces.
-•	Confidence scores increase, allowing more data to go to the Source without frequent human checks.
-•	Applying Data linkage techniques would merge information from different sources about the same address or entity to create a more comprehensive master data catalog.
-![image](https://github.com/girish-Pillai/Chaos-to-Clarity-MasterDataManagement/assets/98634040/24a413fc-0215-42ff-88a6-c9087d117907)
+### Cleaning Business Names:
+1. **Pass 1: Removing High-Frequency Designations:**
+   - Eliminated words like "INC," "LLC," "CORP," etc., using regular expressions.
+2. **Pass 2: Standardizing Well-Known Entities:**
+   - Manually identified high-frequency entities (e.g., "DUNKIN DONUTS," "DOMINOS," "SUBWAY") repeated over 200 times.
+   - Standardized their names to consistent formats (e.g., all uppercase or title case) to facilitate grouping and improve Edit Distance Algorithm performance.
+3. **Export to Parquet Format:**
+   - Exported the cleaned dataframe to Parquet format for leveraging columnar processing.
+4. **Iterative Approach:**
+   - Discovered additional similarities while dividing and combining data, suggesting that a more iterative approach could yield even better results in future iterations.
+
+### Similarity Metrics:
+1. **Levenshtein Distance:**
+   - Tested the Levenshtein distance as a measure of similarity, but results were not highly successful.
+2. **FuzzyWuzzy Package:**
+   - Utilized the FuzzyWuzzy package in Python for string matching and comparison.
+
+### Fuzzy Wuzzy Approach:
+1. **Incremental Approach:**
+   - Tackled problems incrementally, focusing on addresses first and gradually refining based on restaurant similarities.
+2. **Pairwise Comparison:**
+   - Split the data into pairs of potentially similar rows based on row numbers.
+   - Applied a threshold of 70% similarity for identifying potential duplicates.
+   - Selected the longer entity name if both scored above 70% similarity.
+   - Merged selected pairs back into a single dataframe after cleaning up temporary columns.
+
+### Future Scope and Scaling:
+- **Pipeline Design:**
+  - Conduct a comprehensive cleaning manually or through algorithms on the first load, using human validation and checksums.
+  - Enhance query performance over time by incorporating the SATAE Column Using the zip code and city for better partitioning and bucketing.
+- **Incremental Load:**
+  - Apply transformations, substitutions, and similarity checks on new incoming data before pushing it to the Source table.
+  - Establish criteria for pushing data based on similarity scores.
+- **Over Time:**
+  - Refine and add to the Master-Data-Management (MDM) table to reduce manual intervention.
+  - Increase confidence scores to allow more data to go to the Source without frequent human checks.
+- **Data Linkage Techniques:**
+  - Merge information from different sources about the same address or entity to create a more comprehensive master data catalog.
 
 
-Cleaned and merged two highly inconsistent restaurant datasets to create a Master Data of unique records, resulting in a final dataset with 50% improved accuracy.
+### How is this project deployed
+- Utilized GCP for deploying the project with Dataproc for executing Spark jobs and Cloud Composer for automated deployment.
 
-Leveraged advanced data cleaning techniques like Levenshtein distance, regular expressions, and FuzzyWuzzy for string matching and comparison.  
-
-Utilized GCP for deploying the project with Dataproc for executing Spark jobs and Cloud Composer for automated deployment.
-
-For standalone setups, employed Docker for deployment regardless of the environment.
+- For standalone setups, employed Docker for deployment regardless of the environment.
