@@ -18,19 +18,21 @@ Rephrased and contextualized instructions for cleaning CSV data:
 
 Steps:
 
-1.	Identifies and remove inconsistencies:
+> 1.	Identifies and remove inconsistencies:
+
   o	Whitespace, trailing/leading spaces, special characters:
+  
     	Examine all columns for these issues. Use appropriate methods (e.g., trimming, regular expressions) to remove them.		
 	Being mindful of preserving necessary spaces within data like street addresses, directions
 o	City and ZIP code uniformity:
 	Checked if there are variations in capitalization, formatting, or presence of abbreviations in city names.
 	First thing, I focused on cleaning up the "CITY" and "ZIPCODE" Ensure ZIP codes are all in a standard 5-digit format, adding leading zeros if necessary (e.g., converting "777" to "00777").   
 	Consider standardizing city names to a specific format (e.g., all uppercase, title case). 
-2.	The "ADDRESS" column was my next target, mainly because it serves as a standard geographical reference. It felt more approachable than the "RESTAURANTS/ENTITY" column, so I decided to tackle it first.
-3.	To clean the "ADDRESS", I took the manual approach first! I used regular expressions to identify and fix common issues, For the ADDRESS part I took the 80/20 approach
-4.	Abbreviations: Thanks to the USPS-Suffix-Abbreviations chart, I standardized inconsistent abbreviations for words like "AVENUE," "STREET," "HIGHWAY," and more.
-5.	Directions: I transformed compass abbreviations like "S" to "SOUTH," "N" to "NORTH," and so on, ensuring clarity and uniformity.
-6.	Cleaning involved going back and forth between addresses and entities. I'd fix addresses, then tackle entities, then go back to addresses to catch new issues. Time constraints meant I couldn't divide and combine data as planned, so I applied various techniques on the fly.
+3.	The "ADDRESS" column was my next target, mainly because it serves as a standard geographical reference. It felt more approachable than the "RESTAURANTS/ENTITY" column, so I decided to tackle it first.
+4.	To clean the "ADDRESS", I took the manual approach first! I used regular expressions to identify and fix common issues, For the ADDRESS part I took the 80/20 approach
+5.	Abbreviations: Thanks to the USPS-Suffix-Abbreviations chart, I standardized inconsistent abbreviations for words like "AVENUE," "STREET," "HIGHWAY," and more.
+6.	Directions: I transformed compass abbreviations like "S" to "SOUTH," "N" to "NORTH," and so on, ensuring clarity and uniformity.
+7.	Cleaning involved going back and forth between addresses and entities. I'd fix addresses, then tackle entities, then go back to addresses to catch new issues. Time constraints meant I couldn't divide and combine data as planned, so I applied various techniques on the fly.
 Cleaning Business Names:
 1.	Pass 1: Removing High-Frequency Designations: Eliminated words like "INC," "LLC," "CORP," etc., using regular expressions.
 2.	Performed this in three passes to address cases where multiple designations appeared in a single name (e.g., "CENTURY KANG INC CO LLC"). This ensures thorough cleanup.
