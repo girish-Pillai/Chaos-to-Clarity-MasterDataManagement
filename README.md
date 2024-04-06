@@ -19,8 +19,8 @@ Rephrased and contextualized instructions for cleaning CSV data:
 Steps:
 
 1.	Identifies and remove inconsistencies:
-o	Whitespace, trailing/leading spaces, special characters:
-	Examine all columns for these issues. Use appropriate methods (e.g., trimming, regular expressions) to remove them.		
+  o	Whitespace, trailing/leading spaces, special characters:
+    	Examine all columns for these issues. Use appropriate methods (e.g., trimming, regular expressions) to remove them.		
 	Being mindful of preserving necessary spaces within data like street addresses, directions
 o	City and ZIP code uniformity:
 	Checked if there are variations in capitalization, formatting, or presence of abbreviations in city names.
