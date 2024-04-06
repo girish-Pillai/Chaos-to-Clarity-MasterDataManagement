@@ -20,13 +20,13 @@ Steps:
 
 1.	Identifies and remove inconsistencies:
 
-  o	Whitespace, trailing/leading spaces, special characters:
+  Whitespace, trailing/leading spaces, special characters:
   
-    	Examine all columns for these issues. Use appropriate methods (e.g., trimming, regular expressions) to remove them.		
+    Examine all columns for these issues. Use appropriate methods (e.g., trimming, regular expressions) to remove them.		
     
-    	Being mindful of preserving necessary spaces within data like street addresses, directions
+    Being mindful of preserving necessary spaces within data like street addresses, directions
     
-  o	City and ZIP code uniformity:
+City and ZIP code uniformity:
     	Checked if there are variations in capitalization, formatting, or presence of abbreviations in city names.
     	First thing, I focused on cleaning up the "CITY" and "ZIPCODE" Ensure ZIP codes are all in a standard 5-digit format, adding leading zeros if necessary (e.g., converting "777" to "00777").   
     	Consider standardizing city names to a specific format (e.g., all uppercase, title case). 
