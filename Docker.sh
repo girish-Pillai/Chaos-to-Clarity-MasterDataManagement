@@ -25,7 +25,7 @@ ENV SPARK_HOME=/opt/spark
 ENV PATH=$PATH:$SPARK_HOME/bin
 
 # Install required Python packages
-RUN pip install pyspark apache-airflow
+RUN pip install pyspark apache-airflow fuzzywuzzy
 
 # Copy the PySpark code files to the container
 COPY function.py /app
