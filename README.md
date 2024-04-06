@@ -20,7 +20,7 @@ Steps:
 
 1.	Identifies and remove inconsistencies:
 
-  Whitespace, trailing/leading spaces, special characters:
+    Whitespace, trailing/leading spaces, special characters:
   
     Examine all columns for these issues. Use appropriate methods (e.g., trimming, regular expressions) to remove them.		
     
