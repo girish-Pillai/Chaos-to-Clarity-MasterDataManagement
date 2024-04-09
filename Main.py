@@ -13,7 +13,7 @@ class MainApplication:
     def main(self):
 
         # Define the path name of storage bucket
-        STORAGE_BUCKET = "veeva_data_bucket"
+        STORAGE_BUCKET = "mdm_data_bucket"
 
         file1_path = f"gs://{STORAGE_BUCKET}/input_data/file1.csv"
         file2_path = f"gs://{STORAGE_BUCKET}/input_data/file2.csv"

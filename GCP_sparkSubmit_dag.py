@@ -13,11 +13,11 @@ from airflow.utils.trigger_rule import TriggerRule
 from airflow.providers.google.cloud.hooks.secrets_manager import SecretsManagerHook
 
 
-DAG_ID = "dataproc_veeva_home_assesment"
-PROJECT_ID = "veeva-home-assesment"
-CLUSTER_NAME =  "veeva-home-assesment-airflow-cluster"
+DAG_ID = "dataproc_chaos_to_clarity"
+PROJECT_ID = "chaos-to-clarity"
+CLUSTER_NAME =  "chaos-to-clarity-airflow-cluster"
 REGION = "us-east1"
-STORAGE_BUCKET = "veeva_data_bucket"
+STORAGE_BUCKET = "mdm_data_bucket"
 PIP_INSTALL_PATH = f"gs://goog-dataproc-initialization-actions-{REGION}/python/pip-install.sh"
 
 FUNCTION_PATH = f"gs://{STORAGE_BUCKET}/Code/function.py"
