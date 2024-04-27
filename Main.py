@@ -69,7 +69,7 @@ class MainApplication:
 # Call the main function
 if __name__ == "__main__":
     spark = SparkSession.builder \
-            .appName("VeevaAssesment") \
+            .appName("Chaos-to-clarity-pyspark-job") \
             .getOrCreate()
     app = MainApplication(spark)
     app.main()
